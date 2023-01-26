@@ -1,9 +1,6 @@
 /*-------------------------------------------------------------
 // AUTHOR: Antoine Ward
-// FILENAME: Lab3
 // SPECIFICATION: If else
-// FOR: CSE 110- Lab #3
-// TIME SPENT: how long it took you to complete the assignment.
 //-----------------------------------------------------------*/
 import java.util.Scanner;
 
