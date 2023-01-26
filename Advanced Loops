@@ -159,4 +159,4 @@ public class Lab5 {
         System.out.println("d) Shallow diamond");
         System.out.println("q) Quit");
     }  // End of displayMenu
-}  // End of Lab5
+}  // End
