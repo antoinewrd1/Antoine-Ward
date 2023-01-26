@@ -1,0 +1,50 @@
+/*-------------------------------------------------------------
+// AUTHOR: Antoine Ward
+// FILENAME: Lab7.java
+// SPECIFICATION: Classes (Part 1) 
+//Please do NOT touch the makeReport method. Do all your changes only in the main 
+method.
+//-----------------------------------------------------------*/
+import java.time.LocalDateTime;
+import java.util.Scanner;
+public class Lab7 {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		String firstName, lastName, fullName = null, asuID;
+		String programName, description, fileName;
+		
+		System.out.print("The student's first name? ");
+		firstName = scan.nextLine();
+		System.out.print("The student's last name? ");
+		lastName = scan.nextLine();
+		System.out.print("The student's ASU ID? ");
+		asuID = scan.nextLine();
+		System.out.print("Program name? ");
+		programName = scan.nextLine();
+		System.out.print("Program desc? ");
+		description = scan.nextLine();
+		System.out.print("Program filename? ");
+		fileName = scan.nextLine();
+		System.out.print("Program grade? ");
+		double newGrade = scan.nextDouble();
+		System.out.println();
+		
+		Student obj = new Student (firstName, lastName, fullName, asuID);
+		Program ob = new Program (programName,description,fileName, obj);
+		System.out.println("Making a Student record");
+		System.out.println("...["+ obj.toString()+"]");
+		System.out.println("Making a program record");
+		System.out.println("...[" + ob.toString() + "]");
+		System.out.println();
+
+		System.out.println("========== Program Submission Detail ==========");
+		System.out.println("Student     : " + obj.getFirstName() + " " + obj.getLastName());
+		System.out.println("ASU ID      : " + obj.getAsuID());
+		System.out.println("Grade       : " + newGrade);
+		System.out.println();
+		System.out.println("Program     : " + ob.getProgramName());
+		System.out.println("Filename    : " + ob.getFileName());
+		System.out.println("Description : " + ob.getDescription());
+		System.out.println("Datetime    : " + ob.getCreatedDate());
+	}
+}
