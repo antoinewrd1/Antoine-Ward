@@ -1,0 +1,40 @@
+
+/*-------------------------------------------------------------
+// AUTHOR: Antoine Ward
+// SPECIFICATION: Arrays
+//-----------------------------------------------------------*/
+import java.util.Scanner;
+
+public class Lab6 {
+
+	public static void main(String[] args) 
+	{
+		//Scanner
+		Scanner in = new Scanner(System.in);
+		
+		//Assign variable
+		int numStudents = 0;
+
+		//Ask the user for one number as the size of an array
+		System.out.println("How many students do you have?");
+		numStudents = in.nextInt();
+		
+		//Create an int array by numStudents, Create a double array by numStudents
+		int studentGroups[] = new int[numStudents+1];
+		double studentGrades[] = new double[numStudents+1];
+		
+		//Create a for loop which iterates index i from 1 to numStudents
+		for(int i = 1; i<=numStudents; i++) 
+		{
+			System.out.println("Enter [Group #] and [Grade] for Entry "+i);
+			studentGroups[i]=in.nextInt();
+			studentGrades[i]=in.nextDouble();
+		}
+		//Print out the content in both arrays 
+		System.out.println("=== List of Student Records ====");
+		for(int i =1; i<=numStudents; i++) 
+		{
+			System.out.println("Group " + studentGroups[i] + " - " + studentGrades[i] + " Points");
+		}
+	}
+}
