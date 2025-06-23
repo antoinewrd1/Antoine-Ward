@@ -1,0 +1,25 @@
+import pandas as pd
+
+# Task 3: Load the data from CSV
+df = pd.read_csv('production_data.csv')
+
+# Ensure numeric columns are interpreted correctly
+df['pigment_quantity'] = pd.to_numeric(df['pigment_quantity'], errors='coerce')
+df['product_quality_score'] = pd.to_numeric(df['product_quality_score'], errors='coerce')
+
+# Filter based on conditions
+filtered = df[(df['raw_material_supplier'] == 2) & (df['pigment_quantity'] > 35)]
+
+# Calculate averages
+avg_pigment_quantity = filtered['pigment_quantity'].mean()
+avg_product_quality_score = filtered['product_quality_score'].mean()
+
+# Create the final 1-row DataFrame
+pigment_data = pd.DataFrame([{
+    'raw_material_supplier': 2,
+    'pigment_quantity': round(avg_pigment_quantity, 2),
+    'avg_product_quality_score': round(avg_product_quality_score, 2)
+}])
+
+# Optional: Print to verify
+print(pigment_data)
