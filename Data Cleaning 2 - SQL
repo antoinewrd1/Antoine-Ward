@@ -1,0 +1,32 @@
+SELECT
+  id,
+  -- Validate location
+COALESCE(location, 'Unknown') AS location,
+
+  -- Validate total_roomTHEN '100'
+    CASE 
+    WHEN total_rooms BETWEEN 1 and 400 THEN total_rooms
+    ELSE 100
+  END AS total_rooms,
+
+  -- Validate staff_count using the cleaned total_rooms
+  CASE
+    WHEN staff_count IS NOT NULL THEN staff_count
+    ELSE total_rooms * 1.5
+  END AS staff_count,
+
+  -- Validate opening_date
+CASE
+	WHEN opening_date = '-' THEN '2023'
+	WHEN opening_date BETWEEN '2000' and '2023' then opening_date
+	ELSE '2023'
+  END AS opening_date,
+
+  -- Validate target_guests
+  CASE
+    WHEN target_guests is Null then 'Leisure'
+	WHEN Lower(target_guests) Like 'b%' THEN 'Business'
+    ELSE target_guests
+  END AS target_guests
+
+FROM branch;
