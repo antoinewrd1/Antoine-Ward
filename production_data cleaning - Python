@@ -1,0 +1,51 @@
+import pandas as pd
+import numpy as np
+
+# Load the data
+df = pd.read_csv('production_data.csv')
+
+# 1. Drop rows with missing batch_id
+df = df[df['batch_id'].notna()]
+
+# 2. Convert production_date to datetime
+df['production_date'] = pd.to_datetime(df['production_date'], errors='coerce')
+
+# 3. Clean raw_material_supplier
+# First fill missing with 1 (national_supplier), then map numeric codes to labels
+df['raw_material_supplier'] = df['raw_material_supplier'].fillna(1)
+df['raw_material_supplier'] = df['raw_material_supplier'].astype(int).map({
+    1: 'national_supplier',
+    2: 'international_supplier'
+})
+
+# 4. Clean pigment_type
+valid_pigment_types = ['type_a', 'type_b', 'type_c']
+df['pigment_type'] = df['pigment_type'].str.lower().fillna('other')
+df['pigment_type'] = df['pigment_type'].apply(lambda x: x if x in valid_pigment_types else 'other')
+
+# 5. Clean pigment_quantity
+df['pigment_quantity'] = pd.to_numeric(df['pigment_quantity'], errors='coerce')
+df['pigment_quantity'].fillna(df['pigment_quantity'].median(), inplace=True)
+df['pigment_quantity'] = df['pigment_quantity'].clip(lower=1, upper=100)
+
+# 6. Clean mixing_time
+df['mixing_time'] = pd.to_numeric(df['mixing_time'], errors='coerce')
+df['mixing_time'].fillna(df['mixing_time'].mean().round(2), inplace=True)
+df['mixing_time'] = df['mixing_time'].round(2)
+
+# 7. Clean mixing_speed
+df['mixing_speed'] = df['mixing_speed'].str.title().fillna('Not Specified')
+df['mixing_speed'] = df['mixing_speed'].apply(
+    lambda x: x if x in ['Low', 'Medium', 'High'] else 'Not Specified'
+)
+
+# 8. Clean product_quality_score
+df['product_quality_score'] = pd.to_numeric(df['product_quality_score'], errors='coerce')
+df['product_quality_score'].fillna(df['product_quality_score'].mean().round(2), inplace=True)
+df['product_quality_score'] = df['product_quality_score'].round(2)
+
+# Final cleaned DataFrame
+clean_data = df.copy()
+
+# Optional: view a few rows
+print(clean_data.head())
